@@ -1,0 +1,15 @@
+[user]
+	name = lycorlaptop
+	email = elst.george7@gmail.com
+
+[color]
+  ui = auto
+
+[alias]
+  co = checkout
+  br = branch
+  ad = add
+  ci = commit
+  st = status -s
+
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) <%an>%Creset' --abbrev-commit

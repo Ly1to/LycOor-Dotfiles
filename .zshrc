@@ -43,6 +43,7 @@ zle -N edit-command-line
 bindkey '^E' edit-command-line
 
 alias cf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
