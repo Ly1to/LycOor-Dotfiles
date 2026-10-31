@@ -33,9 +33,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export EDITOR="vim"
 
-source <(fzf --zsh)
-eval "$(zoxide init zsh)"
-
 # open bufferline in editor
 
 autoload -Uz edit-command-line
@@ -47,6 +44,8 @@ alias cf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
+alias gt='git'
+
 function yz() {
   local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	command yazi "$@" --cwd-file="$tmp"
@@ -54,3 +53,7 @@ function yz() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
 	command rm -f -- "$tmp"
 }
+
+source <(fzf --zsh)
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
