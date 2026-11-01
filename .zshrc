@@ -78,6 +78,9 @@ alias lta='eza --tree --level=3 --icons -a'
 
 alias ff='fastfetch'
 
+alias pf='poweroff'
+alias rb='reboot'
+
 alias ..="cd .."
 alias ...="cd ../.."
 
