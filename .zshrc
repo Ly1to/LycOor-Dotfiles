@@ -1,15 +1,17 @@
-# The following lines were added by compinstall
-
-zstyle ':completion:*' completer _complete _ignored
-zstyle :compinstall filename '/home/lycor/.zshrc'
+# completion and performance
 
 autoload -Uz compinit
-compinit
-# End of lines added by compinstall
 
-# Lines configured by zsh-newuser-install
+typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || echo 0)
+if [ $(date +'%j') -ne $updated_at ]; then
+    compinit
+else
+    compinit -C
+fi
 
-# End of lines configured by zsh-newuser-install
+zstyle ':completion:*' completer _complete _ignored
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 HISTFILE=$HOME/.zsh_history
 
@@ -27,7 +29,8 @@ setopt SHARE_HISTORY
 
 source ~/.zsh/plugins/zsh-syntax-highlighting-master/zsh-syntax-highlighting.zsh
 source ~/.zsh/plugins/zsh-autosuggestions-master/zsh-autosuggestions.zsh
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# exports and PATH
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
@@ -39,12 +42,21 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^E' edit-command-line
 
+# alias and functions
+
 alias cf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -la --icons --group-directories-first --git'
+alias lt='eza --tree --level=2 --icons'
+alias lta='eza --tree --level=3 --icons -a'
 
 alias gt='git'
+alias grep='grep --color=auto'
+
+function mkcd() {
+  mkdir -p "$1" && cd "$1"
+}
 
 function yz() {
   local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

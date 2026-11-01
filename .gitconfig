@@ -9,8 +9,9 @@
   co = checkout
   br = branch
   ad = add
-  ci = commit
   st = status -s
+  ls = ls-files
+  ci = commit
 
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) <%an>%Creset' --abbrev-commit
 
