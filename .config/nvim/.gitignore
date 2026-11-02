@@ -1,0 +1,40 @@
+# neovim logs and runtime files
+*.log
+*.shada
+*.shada.tmp
+*.swp
+*.swo
+*.swn
+*~
+.#*
+
+# Local runtime directories (used when XDG directories are inside the config repository)
+.lazy/
+.cache/
+.local/
+backup/
+swap/
+undo/
+sessions/
+
+# Local overrides and private configurations
+local/
+lua/config/local.lua
+lua/plugins/local.lua
+lua/plugins/local/
+.env
+.env.*
+!.env.example
+.direnv/
+.secrets*
+*.pem
+*.key
+
+# System and editor temporary files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+
+# Note: lazy-lock.json and lazyvim.json should be committed to reproduce plugin versions and LazyVim configurations.
