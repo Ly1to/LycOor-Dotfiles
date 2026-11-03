@@ -1,0 +1,41 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "type": "auto", // Logo 类型 (auto, builtin, raw, file 等)
+    "source": "auto", // Logo 来源，可以指定具体系统名称或文件路径
+    "width": 35,
+    "height": 16
+  },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "wallpaper",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "battery",
+    "poweradapter",
+    "localip",
+    "locale",
+    "break",
+    "colors"
+  ]
+}

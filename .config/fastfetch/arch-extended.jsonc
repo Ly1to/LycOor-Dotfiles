@@ -1,0 +1,157 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  "logo": {
+    "type": "file",
+    "source": "/home/lycor/.config/fastfetch/arch.txt",
+    "position": "left",
+    "padding": {
+      "top": 5,
+      "right": 18
+    },
+    "color": {
+      "1": "cyan"
+    }
+  },
+  "display": {
+    "separator": " •  "
+  },
+  "modules": [
+    "break",
+    "break",
+    {
+      "type": "title",
+      "color": {
+        "user": "32", // = color2
+        "at": "37",
+        "host": "32"
+      }
+    },
+    "break",
+    // ─────────────────────────── Hardware ───────────────────────────
+    {
+      "type": "custom",
+      "format": "{#33}{#1}◆ Hardware{#}"
+    },
+    {
+      "type": "host",
+      "key": "host           ",
+      "keyColor": "33"
+    },
+    {
+      "type": "cpu",
+      "key": "cpu            ",
+      "keyColor": "33"
+    },
+    {
+      "type": "gpu",
+      "key": "gpu            ",
+      "keyColor": "33"
+    },
+    {
+      "type": "memory",
+      "key": "memory         ",
+      "keyColor": "33"
+    },
+    {
+      "type": "disk",
+      "key": "disk           ",
+      "keyColor": "33"
+    },
+    {
+      "type": "poweradapter",
+      "key": "power adapter  ",
+      "keyColor": "33"
+    },
+    "break",
+    // ─────────────────────────── Software ───────────────────────────
+    {
+      "type": "custom",
+      "format": "{#33}{#1}◆ Software{#}"
+    },
+    {
+      "type": "os",
+      "key": "distribution   ",
+      "keyColor": "33"
+    },
+    {
+      "type": "packages",
+      "key": "packages       ",
+      "keyColor": "33"
+    },
+    {
+      "type": "shell",
+      "key": "unix shell     ",
+      "keyColor": "33"
+    },
+    {
+      "type": "terminal",
+      "key": "terminal       ",
+      "keyColor": "33"
+    },
+    {
+      "type": "terminalfont",
+      "key": "terminal font  ",
+      "keyColor": "33"
+    },
+    {
+      "type": "localip",
+      "key": "local ip       ",
+      "keyColor": "33"
+    },
+    "break",
+    // ─────────────────────────── Desktop ────────────────────────────
+    {
+      "type": "custom",
+      "format": "{#33}{#1}◆ Desktop{#}"
+    },
+    {
+      "type": "de",
+      "key": "desktop        ",
+      "keyColor": "33"
+    },
+    {
+      "type": "wm",
+      "format": "{} ({3})",
+      "key": "window manager ",
+      "keyColor": "33"
+    },
+    {
+      "type": "wmtheme",
+      "key": "window theme   ",
+      "keyColor": "33"
+    },
+    {
+      "type": "wallpaper",
+      "key": "wallpaper      ",
+      "keyColor": "33"
+    },
+    "break",
+    // ───────────────── Uptime / Age / DateTime ──────────────────────
+    {
+      "type": "custom",
+      "format": "{#33}{#1}◆ Uptime / Age / DateTime{#}"
+    },
+    {
+      "type": "uptime",
+      "key": "uptime         ",
+      "keyColor": "33"
+    },
+    {
+      "type": "command",
+      "key": "system age     ",
+      "keyColor": "33",
+      "text": "printf '%s days' \"$(( ($(date +%s) - $(date -d \"$(stat -c %w /)\" +%s)) / 86400 ))\""
+    },
+    {
+      "type": "datetime",
+      "key": "date & time    ",
+      "keyColor": "33"
+    },
+    "break",
+    {
+      "type": "colors",
+      "symbol": "circle"
+    },
+    "break"
+  ]
+}
