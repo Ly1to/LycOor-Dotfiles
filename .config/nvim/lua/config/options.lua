@@ -15,3 +15,5 @@ vim.opt.timeoutlen = 200
 
 -- 按键序列的超时时间，越小 Esc 越快生效（默认 50）
 vim.opt.ttimeoutlen = 10
+
+vim.opt.guicursor = "n-v-c:block,i-ci-ve:hor20,r-cr:hor20,o:hor50"
