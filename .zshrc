@@ -40,8 +40,6 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-bindkey -v
-
 KEYTIMEOUT=1
 
 setopt INC_APPEND_HISTORY
@@ -54,6 +52,18 @@ setopt SHARE_HISTORY
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
+
+ZVM_CURSOR_STYLE_ENABLED=false
+ZVM_LINE_INIT_MODE=i
+zinit light jeffreytse/zsh-vi-mode
+
+zinit light zsh-users/zsh-history-substring-search
+
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=''
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=''
 
 # exports and PATH
 
