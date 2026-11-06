@@ -77,24 +77,28 @@ setopt SHARE_HISTORY
 # plugins
 
 if (( $+functions[zinit] )); then
-    # 非关键插件延迟到首次提示符后加载，减少 .zshrc 的同步启动时间。
-    zinit ice wait lucid
-    zinit light zsh-users/zsh-autosuggestions
-
     # ZVM 管理 keymap，保持同步加载以避免首屏按键初始化竞争。
     ZVM_CURSOR_STYLE_ENABLED=false
     ZVM_LINE_INIT_MODE=i
+    ZVM_VI_HIGHLIGHT_BACKGROUND='#a3aed2'
+    ZVM_VI_HIGHLIGHT_FOREGROUND='#090c0c'
     zinit light jeffreytse/zsh-vi-mode
+
+    # Insert 模式立即绑定；Normal 模式由 ZVM 延迟应用。
+    zvm_bindkey viins '^[[A' history-substring-search-up
+    zvm_bindkey viins '^[[B' history-substring-search-down
+    zvm_bindkey vicmd '^[[A' history-substring-search-up
+    zvm_bindkey vicmd '^[[B' history-substring-search-down
+    zvm_bindkey vicmd 'k' history-substring-search-up
+    zvm_bindkey vicmd 'j' history-substring-search-down
+
+    # ZVM 会重绑 keymap，autosuggestions 必须在其后加载并立即包装相关控件。
+    zinit ice lucid
+    zinit light zsh-users/zsh-autosuggestions
 
     zinit ice wait lucid
     zinit light zsh-users/zsh-history-substring-search
 fi
-
-# ZVM 会延迟初始化并重新设置 keymap，因此按键必须通过它提供的钩子绑定。
-function zvm_after_lazy_keybindings() {
-    zvm_bindkey vicmd 'k' history-substring-search-up
-    zvm_bindkey vicmd 'j' history-substring-search-down
-}
 
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=''
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=''
