@@ -1,5 +1,5 @@
 [user]
-	name = lycorlaptop
+	name = lycorarch
 	email = elst.george7@gmail.com
 
 [color]
@@ -8,6 +8,7 @@
 [alias]
   co = checkout
   br = branch
+  sw = switch
 
   ad = add
   st = status -s
