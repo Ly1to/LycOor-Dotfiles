@@ -84,14 +84,6 @@ if (( $+functions[zinit] )); then
     ZVM_VI_HIGHLIGHT_FOREGROUND='#090c0c'
     zinit light jeffreytse/zsh-vi-mode
 
-    # Insert 模式立即绑定；Normal 模式由 ZVM 延迟应用。
-    zvm_bindkey viins '^[[A' history-substring-search-up
-    zvm_bindkey viins '^[[B' history-substring-search-down
-    zvm_bindkey vicmd '^[[A' history-substring-search-up
-    zvm_bindkey vicmd '^[[B' history-substring-search-down
-    zvm_bindkey vicmd 'k' history-substring-search-up
-    zvm_bindkey vicmd 'j' history-substring-search-down
-
     # ZVM 会重绑 keymap，autosuggestions 必须在其后加载并立即包装相关控件。
     zinit ice lucid
     zinit light zsh-users/zsh-autosuggestions
@@ -115,11 +107,10 @@ path=(
 export PATH
 export EDITOR="vim"
 
-# open bufferline in editor
+# 注册用 $EDITOR 编辑当前命令行的 zle 控件。
 
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey '^E' edit-command-line
 
 # alias and functions
 
@@ -159,8 +150,12 @@ function yz() {
 	command rm -f -- "$tmp"
 }
 
-# ZVM 初始化会覆盖之前注册的 keymap；fzf 也必须等 ZVM 初始化后再加载。
-zvm_after_init_commands+=('command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)')
+# ZVM 初始化会覆盖之前注册的 keymap，自定义绑定必须等它完成后再应用。
+zvm_after_init_commands+=(
+    'command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)'
+    "zvm_bindkey viins '^E' edit-command-line"
+    "zvm_bindkey vicmd '^E' edit-command-line"
+)
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
