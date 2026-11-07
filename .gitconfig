@@ -1,3 +1,6 @@
+[init]
+  defaultBranch = main
+
 [user]
 	name = lycorarch
 	email = elst.george7@gmail.com
