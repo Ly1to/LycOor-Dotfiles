@@ -11,6 +11,8 @@
 [alias]
   co = checkout
   br = branch
+  sw = switch
+  cp = cherry-pick
 
   ad = add
   st = status -s
