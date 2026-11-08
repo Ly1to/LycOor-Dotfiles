@@ -105,7 +105,7 @@ path=(
     $path
 )
 export PATH
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # 注册用 $EDITOR 编辑当前命令行的 zle 控件。
 
