@@ -133,6 +133,14 @@ alias ...="cd ../.."
 alias gt='git'
 alias grep='grep --color=auto'
 
+function vi() {
+    if (( $# == 0 )); then
+        command nvim .
+    else
+        command nvim "$@"
+    fi
+}
+
 function mkcd() {
     # 只接受一个目录参数，并阻止以 "-" 开头的名称被当成选项。
     if (( $# != 1 )); then
