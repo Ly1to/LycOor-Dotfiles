@@ -100,6 +100,7 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=''
 # 使用 zsh 的 path 数组去重，重复 source .zshrc 也不会不断累积相同路径。
 typeset -U path PATH
 path=(
+    "$HOME/.local/share/pnpm"
     "$HOME/.npm-global/bin"
     "$HOME/.local/bin"
     $path
