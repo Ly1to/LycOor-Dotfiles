@@ -8,6 +8,8 @@ return {
         neocmake = {},
 
         pyright = {},
+
+        emmet_language_server = {},
       },
     },
   },
