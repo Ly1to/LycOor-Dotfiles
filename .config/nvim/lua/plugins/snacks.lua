@@ -64,4 +64,14 @@ return {
       },
     },
   },
+
+  {
+    "folke/snacks.nvim",
+    opts = {
+      image = {
+        -- open image file to auto render
+        enabled = true,
+      },
+    },
+  },
 }
