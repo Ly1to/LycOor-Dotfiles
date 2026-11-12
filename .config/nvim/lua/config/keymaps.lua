@@ -26,3 +26,6 @@ end
 
 -- Insert mode, ctrl+o to new a line above current line
 vim.keymap.set("i", "<C-o>", "<Esc>O", { desc = "Insert line above" })
+
+-- leader+v maps to ctrl+v
+vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
