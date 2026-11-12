@@ -23,3 +23,6 @@ for _, lhs in ipairs({ "<c-/>", "<c-_>" }) do
     Snacks.terminal()
   end, { desc = "Terminal (cwd)" })
 end
+
+-- Insert mode, ctrl+o to new a line above current line
+vim.keymap.set("i", "<C-o>", "<Esc>O", { desc = "Insert line above" })
