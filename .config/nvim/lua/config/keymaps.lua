@@ -23,3 +23,6 @@ for _, lhs in ipairs({ "<c-/>", "<c-_>" }) do
     Snacks.terminal()
   end, { desc = "Terminal (cwd)" })
 end
+
+-- leader+v maps to ctrl+v
+vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
