@@ -70,10 +70,37 @@ map("v", "<Down>", function()
   move_selection(1)
 end, { desc = "Move selection down" })
 
--- Normal mode <Right>: vertical split, exactly like LazyVim's <leader>| (<C-W>v).
+-- The window's alternate buffer (`#`) is the file we were on before this one,
+-- which is exactly what a fresh split should show, and it survives the split.
+-- (getbufinfo().lastused only has 1s resolution, so it cannot be used as MRU:
+-- buffers opened within the same second tie.)
+local function other_buf(cur)
+  local alt = vim.fn.bufnr("#")
+  if alt > 0 and alt ~= cur and vim.bo[alt].buflisted then
+    return alt
+  end
+  -- no usable alternate: take any other listed buffer, else nil (nothing to show)
+  for _, b in ipairs(vim.api.nvim_list_bufs()) do
+    if b ~= cur and vim.bo[b].buflisted then
+      return b
+    end
+  end
+end
+
+-- Normal mode <Right>: vertical split, like LazyVim's <leader>| (<C-W>v), but the
+-- new window shows *another* file instead of the one already in the current
+-- window. With only one buffer there is nothing else to show, so it stays put.
 -- 'splitright' is already on (LazyVim default), so the new window opens to the right.
 -- Note: only kRight is remapped; `l` and other keys are untouched.
-map("n", "<Right>", "<C-W>v", { desc = "Split Window Right", remap = true })
+map("n", "<Right>", function()
+  -- read `#` before splitting: it is per window, and the new window is the one
+  -- we switch buffers in
+  local other = other_buf(vim.api.nvim_get_current_buf())
+  vim.cmd("vsplit")
+  if other then
+    vim.api.nvim_win_set_buf(0, other)
+  end
+end, { desc = "Split Window Right (other buffer)" })
 
 -- Normal mode <Left>: close the current window, silently a no-op on the last
 -- window of the tab (no E444 noise, and it can never quit Neovim; the buffer
