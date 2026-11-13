@@ -27,6 +27,49 @@ end
 -- Insert mode, ctrl+o to new a line above current line
 vim.keymap.set("i", "<C-o>", "<Esc>O", { desc = "Insert line above" })
 
+-- Visual mode: arrow up/down move the selected block up/down (reindent + reselect).
+-- A count is honored: `3<Down>` moves the selection 3 lines down. Out-of-range
+-- counts are clamped instead of raising E16 like a bare `:m` would.
+-- "v" covers charwise / linewise / blockwise visual + select
+local function move_selection(dir)
+  -- read the count before touching the mode below, `normal!` resets v:count
+  local count = vim.v.count1
+
+  -- leaving visual mode is what sets '< and '>, and `:m` needs those marks
+  pcall(vim.cmd, "normal! \27")
+
+  local first, last = vim.fn.line("'<"), vim.fn.line("'>")
+  if first > last then
+    first, last = last, first
+  end
+
+  local dest
+  if dir > 0 then
+    -- `:m {addr}` puts the block *after* {addr}
+    dest = math.min(last + count, vim.api.nvim_buf_line_count(0))
+    if dest <= last then
+      vim.cmd("normal! gv")
+      return
+    end
+  else
+    dest = math.max(first - count - 1, 0)
+    if dest >= first - 1 then
+      vim.cmd("normal! gv")
+      return
+    end
+  end
+
+  vim.cmd(("'<,'>m %d"):format(dest))
+  vim.cmd("normal! gv=gv")
+end
+
+map("v", "<Up>", function()
+  move_selection(-1)
+end, { desc = "Move selection up" })
+map("v", "<Down>", function()
+  move_selection(1)
+end, { desc = "Move selection down" })
+
 -- leader+v maps to ctrl+v
 vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
 
