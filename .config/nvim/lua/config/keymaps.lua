@@ -70,6 +70,11 @@ map("v", "<Down>", function()
   move_selection(1)
 end, { desc = "Move selection down" })
 
+-- Normal mode <Right>: vertical split, exactly like LazyVim's <leader>| (<C-W>v).
+-- 'splitright' is already on (LazyVim default), so the new window opens to the right.
+-- Note: only kRight is remapped; `l` and other keys are untouched.
+map("n", "<Right>", "<C-W>v", { desc = "Split Window Right", remap = true })
+
 -- leader+v maps to ctrl+v
 vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
 
