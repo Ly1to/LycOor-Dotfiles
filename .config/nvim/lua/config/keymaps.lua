@@ -75,6 +75,15 @@ end, { desc = "Move selection down" })
 -- Note: only kRight is remapped; `l` and other keys are untouched.
 map("n", "<Right>", "<C-W>v", { desc = "Split Window Right", remap = true })
 
+-- Normal mode <Left>: close the current window, silently a no-op on the last
+-- window of the tab (no E444 noise, and it can never quit Neovim; the buffer
+-- stays loaded/hidden, so `:b` can bring it back).
+map("n", "<Left>", function()
+  if #vim.api.nvim_tabpage_list_wins(0) > 1 then
+    vim.cmd("close")
+  end
+end, { desc = "Close Window" })
+
 -- leader+v maps to ctrl+v
 vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
 
