@@ -20,6 +20,18 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- markdown 不显示诊断（marksman、markdownlint 等的警告/错误），但 LSP 仍然附着：
+-- 补全、跳转、hover 依旧可用，只是没有波浪线、sign 和虚拟文本。
+vim.api.nvim_create_autocmd({ "FileType", "LspAttach" }, {
+  group = vim.api.nvim_create_augroup("user_markdown_no_diagnostics", {}),
+  callback = function(args)
+    if not vim.bo[args.buf].filetype:match("^markdown") then
+      return
+    end
+    vim.diagnostic.enable(false, { bufnr = args.buf })
+  end,
+})
+
 -- Sessions save directory buffers (e.g. from `nvim .` or the explorer) as
 -- `badd +0 ./` / `$argadd ./`. Restoring them creates a phantom "empty" buffer
 -- named after the directory, which only turns out to be the explorer when opened.
