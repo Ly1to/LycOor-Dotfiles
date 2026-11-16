@@ -117,6 +117,37 @@ vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
 -- Normal mode, ctrl+n enters insert mode then presses Enter
 map("n", "<C-n>", "i<CR>", { desc = "Insert mode + new line" })
 
+-- Insert mode, ctrl+n is Enter: saves reaching for the far away <CR> key.
+-- While the blink.cmp menu is open the key keeps its completion meaning
+-- (select next item) so completion navigation is not lost.
+-- NOTE: a Lua callback mapping ignores a *returned* string, so the newline has
+-- to be queued with nvim_feedkeys ("ni" = put it in front, no remap).
+map("i", "<C-n>", function()
+  local ok, cmp = pcall(require, "blink.cmp")
+  if ok and cmp.is_menu_visible() then
+    cmp.select_next()
+    return
+  end
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "ni", false)
+end, { desc = "New line (Enter)" })
+
+-- Insert mode, ctrl+- types ">" (a shifted "." that needs an awkward reach).
+-- <C-_> (ctrl+shift+-) is registered as well: a legacy terminal cannot report
+-- ctrl+- at all and sends 0x1F instead, which nvim reads as <C-_>. Insert mode
+-- only, so the n/t terminal toggles on <C-_>/<C-/> keep their meaning.
+-- NOTE: a plain string rhs inserts its text as typed keys, so no callback is
+-- needed here.
+for _, lhs in ipairs({ "<C-->", "<C-_>" }) do
+  map("i", lhs, ">", { desc = "Insert >" })
+end
+
+-- Insert mode, ctrl+0 types "{". Unlike ">" above this one has to go through
+-- mini.pairs to auto-close exactly like a typed "{": `remap = true`
+-- (non-noremap) re-resolves the rhs through the insert mappings, and that is
+-- where mini.pairs' expr map on "{" lives. A plain noremap rhs would bypass it
+-- and insert a bare "{" instead of the "{}" pair.
+map("i", "<C-0>", "{", { remap = true, desc = "Insert { (auto-paired)" })
+
 -- Insert mode symbol layer: <F3> toggles a "shift layer" where the unshifted
 -- keys insert their shifted counterpart (US layout).
 -- Press <F3> again (or leave insert mode) to go back to normal typing.
