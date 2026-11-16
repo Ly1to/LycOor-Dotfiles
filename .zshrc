@@ -99,11 +99,17 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=''
 
 # 使用 zsh 的 path 数组去重，重复 source .zshrc 也不会不断累积相同路径。
 typeset -U path PATH
-path=(
-    "$HOME/.npm-global/bin"
-    "$HOME/.local/bin"
-    $path
-)
+# 各包管理器的全局 bin 目录：目录存在才加入，两台机器可以共用同一份配置。
+# pnpm 的全局 bin 在 $PNPM_HOME/bin 下（pnpm bin -g），而不是 $PNPM_HOME 本身。
+for _dir in \
+    "${PNPM_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/pnpm}/bin" \
+    "$HOME/.npm-global/bin" \
+    "$HOME/.local/bin"; do
+    if [[ -d "$_dir" ]]; then
+        path=("$_dir" $path)
+    fi
+done
+unset _dir
 export PATH
 export EDITOR="nvim"
 

@@ -1,9 +1,8 @@
 [init]
   defaultBranch = main
 
-[user]
-	name = lycorarch
-	email = elst.george7@gmail.com
+[include]
+  path = ~/.gitconfig.local
 
 [color]
   ui = auto

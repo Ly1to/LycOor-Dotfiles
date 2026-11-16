@@ -1,0 +1,4 @@
+.gitconfig.local
+*.local.conf
+
+.config/kitty/colors.conf
