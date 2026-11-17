@@ -24,6 +24,13 @@ for _, lhs in ipairs({ "<c-/>", "<c-_>" }) do
   end, { desc = "Terminal (cwd)" })
 end
 
+-- Terminal mode: a single <F1> puts the terminal buffer into normal mode instead
+-- of snacks' default double <Escape> (200ms window). <C-\><C-n> is the builtin
+-- "leave terminal insert mode" sequence, so the shell never sees the keypress.
+-- Mappings in "t" mode are only active inside terminal buffers, so <F1> keeps
+-- its normal/help meaning everywhere else.
+map("t", "<F1>", "<C-\\><C-n>", { desc = "Terminal Normal Mode" })
+
 -- Insert mode, ctrl+o to new a line above current line
 vim.keymap.set("i", "<C-o>", "<Esc>O", { desc = "Insert line above" })
 
