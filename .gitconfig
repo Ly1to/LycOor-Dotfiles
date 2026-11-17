@@ -4,6 +4,14 @@
 [include]
   path = ~/.gitconfig.local
 
+[pull]
+  # 同步只走 rebase，避免产生 Merge branch 节点
+  rebase = true
+
+[fetch]
+  # 自动清理上游已删除的分支的远程跟踪 ref
+  prune = true
+
 [color]
   ui = auto
 
