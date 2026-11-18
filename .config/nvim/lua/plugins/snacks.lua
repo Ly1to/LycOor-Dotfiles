@@ -83,6 +83,14 @@ return {
     keys = {
       -- remap
       {
+        "<C-CR>",
+        function()
+          Snacks.terminal()
+        end,
+        desc = "Terminal (Float)",
+        mode = { "n", "t" },
+      },
+      {
         "<c-/>",
         function()
           Snacks.terminal()

@@ -15,7 +15,12 @@ map("n", "<leader>fT", function()
   Snacks.terminal(nil, { cwd = LazyVim.root() })
 end, { desc = "Terminal (Root Dir)" })
 
-for _, lhs in ipairs({ "<c-/>", "<c-_>" }) do
+-- Toggle the floating terminal. <C-CR> (ctrl+enter) is the primary key: in
+-- kitty (and other terminals that speak the kitty keyboard protocol, which nvim
+-- enables itself) ctrl+enter is reported as CSI 13;5u and stays distinct from a
+-- plain <CR>. <C-/> / <C-_> are kept as fallbacks for terminals that cannot
+-- report ctrl+enter separately (they would just send 0x0D / 0x1F there).
+for _, lhs in ipairs({ "<C-CR>", "<c-/>", "<c-_>" }) do
   map("n", lhs, function()
     Snacks.terminal()
   end, { desc = "Terminal (cwd)" })
