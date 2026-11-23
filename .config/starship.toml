@@ -19,6 +19,7 @@ $rust\
 $golang\
 $php\
 [ ](fg:#212736 bg:#1d2230)\
+$battery\
 $time\
 [ ](fg:#1d2230)
 [╰─](bold green)$character\
@@ -59,6 +60,28 @@ style_user = "bold blue"
 style_root = "bold red"
 format = "[$user]($style) "
 show_always = false
+
+[battery]
+format = '[ $symbol $percentage ]($style)'
+full_symbol = "󰁹"
+charging_symbol = "󰂄"
+discharging_symbol = "󰂃"
+unknown_symbol = "󰂑"
+empty_symbol = "󰂎"
+
+# 配色全部交给 display 的 style：取「最小且 ≥ 当前电量」的 threshold 对应的样式
+# 低→高排列，最后一条为兜底（不写兜底则电量高时不显示电池模块）
+[[battery.display]]
+threshold = 10
+style = "bg:#1d2230 fg:#f7768e"
+
+[[battery.display]]
+threshold = 25
+style = "bg:#1d2230 fg:#e0af68"
+
+[[battery.display]]
+threshold = 100
+style = "bg:#1d2230 fg:#a0a9cb"
 
 [time]
 disabled = false
