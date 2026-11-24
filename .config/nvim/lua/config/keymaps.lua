@@ -123,8 +123,17 @@ map("n", "<Left>", function()
   end
 end, { desc = "Close Window" })
 
--- leader+v maps to ctrl+v
-vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
+-- Visual mode v enters blockwise visual instead of the default (leave visual).
+-- <C-v> cannot be used blindly here: in Neovim <C-v> *toggles*, so pressing it
+-- again inside blockwise drops back to normal mode. Already-blockwise (visual or
+-- select) is therefore a no-op; <Esc> remains the way out.
+map("v", "v", function()
+  local m = vim.fn.mode()
+  if m == "\22" or m == "\19" then -- ^V blockwise, ^S select-blockwise
+    return
+  end
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-v>", true, false, true), "n", false)
+end, { desc = "Visual Block Mode" })
 
 -- Normal mode, ctrl+n enters insert mode then presses Enter
 map("n", "<C-n>", "i<CR>", { desc = "Insert mode + new line" })
